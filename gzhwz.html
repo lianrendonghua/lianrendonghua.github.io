@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载成功</title>
+    <script>
+                // 定义要跳转的两个URL
+        const workUrl = 'https://suijikuo.github.io'; // 工作日工作时间段跳转宁波同事https://post.jellow.club/qbtwx
+        const otherUrl = 'https://suijikuo.github.io';    // 其他时间跳转上海同事
+
+        // 获取当前时间并判断跳转哪个URL的函数
+        function decideRedirect() {
+            const now = new Date();
+            const day = now.getDay(); // 获取当前是一周的第几天，0代表星期日，1代表星期一，以此类推
+            const hours = now.getHours(); // 获取当前小时数 (0-23)
+            const minutes = now.getMinutes(); // 获取当前分钟数 (0-59)
+
+            // 判断是否是工作日(周一到周五)以及是否在工作时间段(8:30到21:00)
+            const isWorkTime = (day >= 1 && day <= 5) && (hours >= 8 && hours < 22);
+
+            // 根据是否是工作时间段决定跳转到哪个URL
+            return isWorkTime ? workUrl : otherUrl;
+        }
+
+        // 页面加载完成后立即执行跳转
+        document.addEventListener('DOMContentLoaded', function() {
+            window.location.href = decideRedirect();
+        });
+    </script>
+</head>
+<body>
+    <a>正在跳转请稍等...</a>
+</body>
+</html>
