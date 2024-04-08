@@ -23,7 +23,7 @@
             const minutes = now.getMinutes();
 
             // 判断是否是工作时间段
-            const isWorkTime = (now.getDay() >= 1 && now.getDay() <= 5) && (hours >= 8 && hours < 21) && (minutes >= 30);
+            const isWorkTime = (now.getDay() >= 1 && now.getDay() <= 5) && (hours >= 8 && hours < 21);
 
             // 根据是否是工作时间段返回对应的URL
             return isWorkTime ? workUrl : otherUrl;
