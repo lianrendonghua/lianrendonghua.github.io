@@ -3,30 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加载成功</title>
+    <title>Persistent Time-based Redirect</title>
     <script>
-                // 定义要跳转的两个URL
-        const workUrl = 'https://post.jellow.club/qbtwx'; // 工作日工作时间段跳转宁波同事https://post.jellow.club/qbtwx
+        // 定义要跳转的两个URL
+                const workUrl = 'https://post.jellow.club/qbtwx'; // 工作日工作时间段跳转宁波同事https://post.jellow.club/qbtwx
         const otherUrl = 'https://suijikuo.github.io/img.html';    // 其他时间跳转上海同事https://suijikuo.github.io/img.html
 
-        // 获取当前时间并判断跳转哪个URL的函数
-        function decideRedirect() {
+        // 从localStorage获取URL，如果不存在则根据时间决定
+        function getRedirectUrl() {
+            // 检查localStorage中是否有保存的URL
+            const storedUrl = localStorage.getItem('redirectUrl');
+            if (storedUrl) {
+                return storedUrl;
+            }
+
+            // 定义当前时间
             const now = new Date();
-            const day = now.getDay(); // 获取当前是一周的第几天，0代表星期日，1代表星期一，以此类推
-            const hours = now.getHours(); // 获取当前小时数 (0-23)
-            const minutes = now.getMinutes(); // 获取当前分钟数 (0-59)
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
 
-            // 判断是否是工作日(周一到周五)以及是否在工作时间段(8:30到21:00)
-            const isWorkTime = (day >= 1 && day <= 5) && (hours >= 8 && hours < 22);
+            // 判断是否是工作时间段
+            const isWorkTime = (now.getDay() >= 1 && now.getDay() <= 5) && (hours >= 8 && hours < 21) && (minutes >= 30);
 
-            // 根据是否是工作时间段决定跳转到哪个URL
+            // 根据是否是工作时间段返回对应的URL
             return isWorkTime ? workUrl : otherUrl;
         }
 
-        // 页面加载完成后立即执行跳转
-        document.addEventListener('DOMContentLoaded', function() {
-            window.location.href = decideRedirect();
-        });
+        // 将选择的URL保存到localStorage，并重定向到该URL
+        function saveAndRedirect() {
+            const url = getRedirectUrl();
+            localStorage.setItem('redirectUrl', url);
+            window.location.href = url;
+        }
+
+        // 页面加载完成后立即执行保存和重定向
+        document.addEventListener('DOMContentLoaded', saveAndRedirect);
     </script>
 </head>
 <body>
