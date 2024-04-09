@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MockLover</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f59765; /* 柔和的粉红色背景 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        text-align: center; /* 确保容器内的所有元素都居中对齐 */
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #f27d3f; /* 玫瑰色的标题 */
+        margin-bottom: 20px;
+    }
+    p {
+        color: #f27d3f; /* 副文本的颜色 */
+        margin-bottom: 20px;
+    }
+    .button {
+        padding: 10px 25px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #f27d3f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        transition: background-color 0.3s;
+    }
+    .button:hover {
+        background-color: #a9582c; /* 鼠标悬停时按钮颜色变浅 */
+    }
+    .button:disabled {
+        background-color: #ccc;
+        cursor: default;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MockLover</h1>
+    <p>match with a three-minute couple, experience it！</p>
+    <button id="matchButton" class="button" onclick="startMatching()">Match</button>
+</div>
+
+<script>
+function startMatching() {
+    var button = document.getElementById('matchButton');
+    button.disabled = true;
+    button.innerText = 'Matching';
+    
+    var dots = 0;
+    var intervalID = setInterval(function() {
+        dots = (dots + 1) % 4;
+        var dotStr = '.'.repeat(dots);
+        button.innerText = `Matching${dotStr}`;
+    }, 500);
+
+    setTimeout(function() {
+        clearInterval(intervalID);
+        window.location.href = 'https://www.coze.com/store/bot/7355750788196614152?bot_id=true';
+    }, 5000);
+}
+</script>
+
+</body>
+</html>
